@@ -2,7 +2,7 @@
 import socket
 import time
 import threading
-# import Adafruit_PCA9685
+import Adafruit_PCA9685
 from rpi_ws281x import *
 import argparse
 import os

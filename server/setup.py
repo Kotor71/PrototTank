@@ -6,6 +6,6 @@ setup(
    description='Main software for Robot',
    author='Louis Sabatier',
    author_email='ls@ls.fr',
-   packages=['Client'],  #same as name
-   install_requires=['bar', 'greek'], #external packages as dependencies
+   packages=['server'],  #same as name
+   install_requires=['i2c-tools', 'adafruit-pca9685','rpi_ws281x','numpy','imutils'], #external packages as dependencies
 )

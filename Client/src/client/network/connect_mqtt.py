@@ -31,16 +31,16 @@ class connexion_mqtt(threading.Thread):
     def run(self):
         ########################################
         print("creating new instance")
-        P1=b"177d282a-d832-412d-a818-8a514eb50899"
+        P1=b"36830093-f66c-460d-b5c8-85ddd3a9b3fc"
         self.client = mqtt.Client(client_id=P1) #create new instance
         self.client.on_message=self.on_message #attach function to callback
         self.client.on_log=on_log
-        self.client.username_pw_set("28dcd11d-e76a-4596-84bd-c3b9f6f863f6", password="3ea61757-388c-41fa-b17d-fc0803fdc7fb")
+        self.client.username_pw_set("32123f9e-6668-4f44-adec-eeee59fbdda6", password="c7344cf5-435a-49e3-830a-9e18ef210065")
         print("connecting to broker")
         self.client.connect(self.broker_address, port=1883)
         print("Broker Connected")
+        self.client.subscribe("channels/2bc073e6-a43b-4864-a9db-956a9281ad5e/messages")
         self.client.loop_start() #start the loop
-        self.client.subscribe("channels/8611a392-f843-4edc-893b-8dd9e31fc34e/messages")
 
 
 

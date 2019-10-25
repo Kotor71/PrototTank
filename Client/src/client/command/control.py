@@ -11,7 +11,7 @@ class control_process():
 
                 client = mqtt_client
                 Queue_control = queue.Queue() #initialises a first in first out queue
-                topic ="channels/8611a392-f843-4edc-893b-8dd9e31fc34e/messages"
+                topic ="channels/2bc073e6-a43b-4864-a9db-956a9281ad5e/messages"
 
 
         # (appel au constructeur de la classe mère)
