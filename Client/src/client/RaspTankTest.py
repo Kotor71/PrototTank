@@ -30,12 +30,9 @@ class main():
 
 
     def run(self):
-        self.interface_gui = gui()
-        self.mqtt_client = connexion_mqtt(self.interface_gui, self.conf)
+        self.mqtt_client = connexion_mqtt(self.conf)
         self.mqtt_client.run()
-        self.interface_button = gui_button(self.mqtt_client, self.interface_gui)
         self.control = control_process(self.mqtt_client.client)
-        self.interface_gui.root.mainloop()  # Run the mainloop()
         #info_threading = information_process()
         # info_threading.start()
         # ultra_threading = ultra_process(interface_gui)
