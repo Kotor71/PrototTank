@@ -46,13 +46,14 @@ class Getcommand(threading.Thread):
             data = ''
             if self.Connexion.message is not None:
                 data = self.Connexion.message
+                #print(data)
             if not data:
                 continue
             elif '"forward"' == data:
                 direction_command = 'forward'
                 ws_R = 300
                 ws_G = 0
-                ws_B = 
+                ws_B = 0
                 LED.colorWipe(Color(ws_R,ws_G,ws_B))
                 move.move(speed_set, direction_command, turn_command, rad)
             elif '"backward"' == data:

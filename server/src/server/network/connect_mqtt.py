@@ -1,64 +1,56 @@
 import paho.mqtt.client as mqttClient
-import threading,time 
-import logging
-#from .get_mqtt import on_message
+import threading, time , logging
 
-class connexion_mqtt(threading.Thread):
+logger = logging.getLogger('ProtoTank.ProbeCollector')
 
-    def __init__(self):      # jusqua = donnée supplémentaire
-        threading.Thread.__init__(self)  # ne pas oublier cette ligne
-        global broker_address
-        broker_address = "dsmsab.site"
 
-      # (appel au constructeur de la classe mère)
+class connexion_mqtt():
 
-    
+    def __init__(self, conf ):      # jusqua = donnée supplémentaire
+        logger.debug("Init mqtt connexion")
+        self.params = conf
+        self.broker_address = self.params['Mqtt']['name']
+        self.port = self.params['Mqtt']['port']
+        self.topic = self.params['Topic']['Information']
+        self.id_connect = self.params['Mqtt']['id']
+        self.user = self.params['Mqtt']['user']
+        self.password = self.params['Mqtt']['password']
+
     def on_connect(self,server_id, userdata, flags, rc):
-    
         if rc == 0:
-    
-            print("Connected to broker")
-    
+            logger.debug("Connected to broker")
             global Connected                #Use global variable
             Connected = True                #Signal connection 
-    
         else:
-    
-            print("Connection failed")
-    
-    def on_message(self,server_id, userdata, message):
-        print ("Message received: "  + str(message.payload.decode("utf-8")))
-        self.message = message.payload.decode("utf-8")
+            logger.debug("Connection failed")
 
+    def on_message(self,server_id, userdata, message):
+        logger.debug("Message received: "  + str(message.payload.decode("utf-8")))
+        self.message = message.payload.decode("utf-8")
         return str(self.message)
 
     def on_log(self,server_id, userdata, level, buf):
-        print("log: ",buf)
+        return
 
 
     def run(self):
-        broker_address= "dsmsab.site"  #Broker address
-        port = 1883                         #Broker port
-        Rasp = "560e1cfc-6348-4630-91ac-ab7ba0ad096d"
-        self.message = None
-        self.server_id = mqttClient.Client(client_id=Rasp)               #create new instance
+        self.server_id = mqttClient.Client(client_id=self.id_connect)               #create new instance
         self.server_id.on_connect= self.on_connect                      #attach function to callback
         self.server_id.on_message= self.on_message                      #attach function to callback
         self.server_id.on_log=self.on_log
-        self.server_id.username_pw_set("7a182fed-8f55-45ff-85f4-77c8fb85f96a", password="ce5a81d0-c7dd-4695-b60b-2e9abde910e4")
-        self.server_id.connect(broker_address, port=port)          #connect to broker
-        
+        self.server_id.username_pw_set(self.user, password=self.password)
+        self.server_id.connect(self.broker_address, port=self.port)          #connect to broker
         self.server_id.loop_start()        #start the loop
-        self.server_id.subscribe("channels/8611a392-f843-4edc-893b-8dd9e31fc34e/messages")
-        try:
-            while True:
-                self.background_process()    #Define a thread for FPV and OpenCV
+        self.server_id.subscribe(self.topic)
+        #try:
+          #  while True:
+           #     self.background_process()    #Define a thread for FPV and OpenCV
 
-        
-        except KeyboardInterrupt:
-            print ("exiting")
-            self.server_id.disconnect()
-            self.server_id.loop_stop()
+
+        # except KeyboardInterrupt:
+        #     print ("exiting")
+        #     self.server_id.disconnect()
+        #     self.server_id.loop_stop()
 
 
         # (appel au constructeur de la classe mère)
@@ -69,7 +61,7 @@ class connexion_mqtt(threading.Thread):
                 #Info_Socket.send((Information.get_cpu_tempfunc(self)+' '+Information.get_cpu_use(self)+' '+Information.get_ram_info(self)).encode())
                 time.sleep(5)
             except:
-                logging.debug("Didn't get hardware info")
+                logger.debug("Didn't get hardware info")
                 pass
 
     def send(self,topic_send,data):

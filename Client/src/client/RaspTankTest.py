@@ -43,7 +43,7 @@ class main():
 
   
 
-        # info_threading = information_process()
+        #info_threading = information_process()
         # info_threading.start()
 
         # ultra_threading = ultra_process(interface_gui)
