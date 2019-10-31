@@ -9,7 +9,7 @@ hdbg = logging.StreamHandler(sys.stdout)
 hdbg.setLevel(logging.DEBUG)
 hdbg.setFormatter(dbgfmt)
 
-logger = logging.getLogger('ProtoTank_Server')
+logger = logging.getLogger('ProtoTank_Client')
 logger.setLevel(logging.DEBUG)
 logger.addHandler(hdbg)
 

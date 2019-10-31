@@ -29,7 +29,6 @@ class main():
    
     def __init__(self):      # jusqua = donnee supplementaire
         logger.debug("Init... ")
-        self.Main = True
         parser = argparse.ArgumentParser(description='My awesome script')
         parser.add_argument(
             "-c", "--conf", action="store", dest="conf_file",

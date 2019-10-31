@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqttClient
 import threading, time , logging
 
-logger = logging.getLogger('ProtoTank.ProbeCollector')
+logger = logging.getLogger('ProtoTank_Server.ProbeCollector')
 
 
 class connexion_mqtt():
@@ -31,7 +31,6 @@ class connexion_mqtt():
 
     def on_log(self,server_id, userdata, level, buf):
         return
-
 
     def run(self):
         self.server_id = mqttClient.Client(client_id=self.id_connect)               #create new instance

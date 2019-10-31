@@ -12,7 +12,6 @@ class gui():
 
     def __init__(self):      # jusqua = donnée supplémentaire
       # (appel au constructeur de la classe mère)
-        self.ip_stu=0        #Shows connection status
         self.color_bg='#000000'        #Set background color
         self.color_text='#E1F5FE'      #Set text color
         self.color_btn='#0277BD'       #Set button color
@@ -96,9 +95,8 @@ class gui():
             self.label_ins.place(x=30,y=300)                         #Define a Label and put it in position
             self.l_ip_3.place(x=175,y=15)                         #Define a Label and put it in position
             self.label_openCV.place(x=180,y=110)                         #Define a Label and put it in position
-
-
             self.canvas_cover.place(x=30,y=420)
+
 
     def instruction(self):
         self.instructions = []
@@ -121,14 +119,3 @@ class gui():
 
         for ins_show in self.instructions:
             self.label_ins.config(text=ins_show)
-
-
-
-
-
-                      #GUI
-
-            ################################
-            #canvas_rec=canvas_ultra.create_rectangle(0,0,340,30,fill = '#FFFFFF',width=0)
-            #canvas_text=canvas_ultra.create_text((90,11),text='Ultrasonic Output: 0.75m',fill=color_text)
-            ################################
